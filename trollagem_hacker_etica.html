@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Central de Segurança</title>
+<style>
+body{margin:0;background:#050505;color:#00ff66;font-family:Consolas,monospace;display:grid;place-items:center;height:100vh}
+.box{width:min(700px,90%);border:1px solid #00ff66;padding:28px;box-shadow:0 0 25px #00ff6633}
+h1{font-size:24px}.bar{height:18px;border:1px solid #00ff66;margin:20px 0}.fill{height:100%;width:0;background:#00ff66;transition:width .15s}
+#status{min-height:80px}.final{display:none;text-align:center;font-size:30px}
+button{background:#00ff66;border:0;padding:12px 20px;font:bold 16px Consolas;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="box" id="box">
+<h1>⚠ CENTRAL DE SEGURANÇA ⚠</h1>
+<div id="status">Inicializando diagnóstico...</div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div id="percent">0%</div>
+</div>
+<script>
+let p=0;
+const msgs=["Iniciando diagnóstico...","Verificando arquivos...","Analisando sistema...","Quase terminando...","Finalizando operação..."];
+const status=document.getElementById("status"), fill=document.getElementById("fill"), percent=document.getElementById("percent");
+const timer=setInterval(()=>{
+ p+=Math.floor(Math.random()*9)+4; if(p>100)p=100;
+ fill.style.width=p+"%"; percent.textContent=p+"%"; status.textContent=msgs[Math.min(4,Math.floor(p/25))];
+ if(p===100){clearInterval(timer);setTimeout(()=>document.getElementById("box").innerHTML='<div class="final" style="display:block"><div style="font-size:70px">😂</div><b>VOCÊ CAIU NA PEGADINHA!</b><p>Nenhum dado foi acessado ou coletado.</p></div>',700);}
+},180);
+</script>
+</body>
+</html>
